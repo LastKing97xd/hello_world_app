@@ -14,16 +14,20 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Funcion Contador'),
-          actions: [
-            IconButton(
-                icon: const Icon(Icons.refresh_rounded),
-                onPressed: () {
-                  setState(() {
-                    clickCounter = 0;
-                  });
-                }),
-          ],
+          title: const Center(
+            child: Text('Funcion Contador',
+              style: TextStyle(
+              fontSize: 40, fontWeight: FontWeight.w300)
+            )),
+          // actions: [
+          //   IconButton(
+          //       icon: const Icon(Icons.refresh_rounded),
+          //       onPressed: () {
+          //         setState(() {
+          //           clickCounter = 0;
+          //         });
+          //       }),
+          // ],
         ),
         body: Center(
             child: Column(
@@ -46,29 +50,61 @@ class _CounterFunctionsScreenState extends State<CounterFunctionsScreen> {
         floatingActionButton: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            FloatingActionButton(
-              shape: const StadiumBorder(),
+            CustomButton(
+              icon: Icons.restart_alt_outlined,
               onPressed: () {
                 setState(() {
-                  //clickCounter = clickCounter + 1;
+                  clickCounter = 0;
+                });
+              },
+            ),
+            //Separacion Botones
+            const SizedBox(height: 10),
+
+            CustomButton(
+              icon: Icons.plus_one,
+              onPressed: () {
+                setState(() {
                   clickCounter++;
                 });
               },
-              child: const Icon(Icons.plus_one),
             ),
+            //Separacion Botones
             const SizedBox(height: 10),
-            FloatingActionButton(
-              shape: const StadiumBorder(),
+
+            CustomButton(
+              icon: Icons.exposure_minus_1_outlined,
               onPressed: () {
                 setState(() {
                   if (clickCounter == 0) return;
-                  //clickCounter = clickCounter - 1;
-                  clickCounter--;
+                  clickCounter --;
                 });
               },
-              child: const Icon(Icons.exposure_minus_1_outlined),
             ),
           ],
         ));
+  }
+}
+
+class CustomButton extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback? onPressed;
+
+  const CustomButton({
+    super.key,
+    required this.icon,
+    this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return FloatingActionButton(
+      //shape: const StadiumBorder(),
+      enableFeedback: true,
+      elevation: 2,
+      backgroundColor: Colors.grey,
+      onPressed: onPressed,
+      child: Icon(icon),
+    );
   }
 }
